@@ -73,4 +73,8 @@ symfony console m:con YoutubeController
 #   <p>{{ youtube.url }} {{ youtube.name}}</p>
 # {% endfor %}
 # {% endblock %}
+
+composer require copadia/php-video-url-parser
+
+symfony console m:t YoutubeExtension # make:twig-extension
 ```
