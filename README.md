@@ -25,6 +25,11 @@ services:
 docker-compose up -d
 symfony serve -d
 
+composer require copadia/php-video-url-parser
+# Configuration de  la réécriture des URL avec Apache et le fichier .htaccess
+composer require symfony/apache-pack
+echo 'web: heroku-php-apache2 public/' > Procfile
+
 symfony console d:d:drop --force
 symfony console d:d:create
 
@@ -34,47 +39,25 @@ symfony console m:e Youtube
 symfony console m:mi
 symfony console d:m:m
 
-symfony console m:fo YoutubeType
-# Youtube
-# Modify the form YoutubeType.php to add the ClassType to the input:
-# $builder
-#   ->add('url', UrlType::class)
-#   ->add('name', TextType::class)
-#   ->add('submit', SubmitType::class);
+cd ..
 
-symfony console m:con YoutubeController
-# /**
-#  * @Route("/", name="app_home")
-#  */
-# public function index(Request $request, EntityManagerInterface $em, YoutubeRepository $youtubeRepository): Response
-# {
-#   $youtube = new Youtube;
-#   $form = $this->createForm(YoutubeType::class, $youtube);
-#   $form->handleRequest($request);
-#   if ($form->isSubmitted() && $form->isValid()) {
-#     $youtube = $form->getData();
-#     $em->persist($youtube);
-#     $em->flush();
-#     return $this->redirectToRoute('app_home');
-#   }
-#   return $this->render('youtube/index.html.twig', [
-#     'form' => $form->createView(),
-#     'youtubes' => $youtubeRepository->findAll(),
-#   ]);
+heroku create tuto-youtube-heroku
+heroku config:set APP_ENV=prod
+heroku addons:create heroku-postgresql:hobby-dev
+
+# Step 8
+# Ajout du script de compilation à composer.json pour migrer la BDD
+# "scripts": {
+#   "compile": [
+#     "php bin/console doctrine:migrations:migrate"
+#   ]
 # }
 
-# ---------------------------------------------------------------------------------
-# {% extends 'base.html.twig' %}
-# {% block title %}Hello YoutubeController!
-# {% endblock %}
-# {% block body %}
-# {{ form(form) }}
-# {% for youtube in youtubes %}
-#   <p>{{ youtube.url }} {{ youtube.name}}</p>
-# {% endfor %}
-# {% endblock %}
+git add .
+git commit -am "Add Heroku configs"
+git push
 
-composer require copadia/php-video-url-parser
-
-symfony console m:t YoutubeExtension # make:twig-extension
+# Step 12
+# Si le projet se situe dans un sous dossier
+git subtree push --prefix youtube-heroku heroku main
 ```
