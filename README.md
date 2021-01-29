@@ -26,9 +26,6 @@ docker-compose up -d
 symfony serve -d
 
 composer require copadia/php-video-url-parser
-# Configuration de  la réécriture des URL avec Apache et le fichier .htaccess
-composer require symfony/apache-pack
-echo 'web: heroku-php-apache2 public/' > Procfile
 
 symfony console d:d:drop --force
 symfony console d:d:create
@@ -38,6 +35,11 @@ symfony console m:e Youtube
 # name : string, 255, not null
 symfony console m:mi
 symfony console d:m:m
+
+### Configurations Heroku ###
+# Configuration de  la réécriture des URL avec Apache et le fichier .htaccess
+composer require symfony/apache-pack
+echo 'web: heroku-php-apache2 public/' > Procfile
 
 cd ..
 
