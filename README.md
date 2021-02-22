@@ -63,3 +63,20 @@ git push
 # Si le projet se situe dans un sous dossier
 git subtree push --prefix youtube-heroku heroku main
 ```
+
+If there is a webpack-encore bundle, there is more configurations for Heroku:
+
+- Requires for webpack-encore in `package.json`:
+
+```json
+"scripts":
+  "heroku-postbuild": "node_modules/.bin/encore production"
+```
+
+- Other commands to host on Heroku (you have to build PHP first then node packages):
+
+```shell
+# Add Buildpack to Heroku to compile JS files (associated to Webpack Encore)
+heroku buildpacks:set heroku/php
+heroku buildpacks:add --index 2 heroku/nodejs
+```
