@@ -1,11 +1,13 @@
-# tuto-heroku-symfony
+# Tuto to host on Heroku
 
-_Inspired from the Youtube cd svideo tutorial of YoanDev [here](https://www.youtube.com/watch?v=sxH_0uSft3M&ab_channel=yoandevco), web article [here](https://yoandev.co/mettre-en-production-une-application-symfony-5-avec-heroku) and source code on GitLab [here](https://gitlab.com/yoandev.co/mettre-en-production-une-application-symfony-5-avec-heroku)_
+## Host a Symfony project
+
+*Inspired from YoanDev tutorial: [Mettre en production une application Symfony 5 avec Heroku](https://www.youtube.com/watch?v=sxH_0uSft3M&ab_channel=yoandevco). Find the web article: [here](https://yoandev.co/mettre-en-production-une-application-symfony-5-avec-heroku). Find the source code on GitLab: [here](https://gitlab.com/yoandev.co/mettre-en-production-une-application-symfony-5-avec-heroku).*
 
 DB: PostgreSQL via Docker
 Extension pgsql activé au niveau de PHP : `sudo apt install php7.4-pgsql` (choisir votre version de PHP)
 
-## Liste des commandes
+### Install the project
 
 ```shell
 symfony new youtube-heroku --full
@@ -35,7 +37,21 @@ symfony console m:e Youtube
 # name : string, 255, not null
 symfony console m:mi
 symfony console d:m:m
+```
 
+### Run the project
+
+```shell
+cd youtube-heroku
+composer install
+
+symfony console d:d:c
+symfony console d:m:m
+```
+
+### Configure Heroku
+
+```shell
 ### Configurations Heroku ###
 # Configuration de  la réécriture des URL avec Apache et le fichier .htaccess
 composer require symfony/apache-pack
@@ -64,7 +80,7 @@ git push
 git subtree push --prefix youtube-heroku heroku main
 ```
 
-If there is a webpack-encore bundle, there is more configurations for Heroku:
+**If there is a webpack-encore bundle, there is more configurations for Heroku:**
 
 - Requires for webpack-encore in `package.json`:
 
