@@ -52,6 +52,9 @@ symfony console d:m:m
 ### Configure Heroku
 
 ```shell
+# Install Heroku > https://devcenter.heroku.com/articles/heroku-cli
+curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+
 ### Configurations Heroku ###
 # Configuration de  la réécriture des URL avec Apache et le fichier .htaccess
 composer require symfony/apache-pack
