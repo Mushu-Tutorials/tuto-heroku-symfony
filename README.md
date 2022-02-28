@@ -64,7 +64,8 @@ cd ..
 
 heroku create tuto-youtube-heroku
 heroku config:set APP_ENV=prod
-heroku addons:create heroku-postgresql:hobby-dev
+heroku addons:create heroku-postgresql:hobby-dev # for pgsql database
+heroku addons:create heroku-postgresql # for sqlite database
 
 # Step 8
 # Ajout du script de compilation à composer.json pour migrer la BDD
